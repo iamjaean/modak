@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import { asyncHandler } from "@utils/asyncHandler";
 import { jwtContents } from "@utils/constants";
@@ -16,7 +17,7 @@ export class AuthController {
     private readonly userService: UserService,
   ) {}
 
-  googleOAuthCallback: RequestHandler = async (req, res) => {
+  googleOAuthCallback: RequestHandler = async (req, res, next) => {
     const _user = req.user as ITokenUser;
     const [accessToken, refreshToken] = await this.authService.signin(_user);
     const user = this.userService.getById(_user._id, { refreshToken: 0 });
@@ -49,16 +50,6 @@ export class AuthController {
     });
 
     return res.status(200).json({ status: true, user });
-  };
-
-  signout = async (req: Request, res: Response) => {
-    const { _id } = req.user as ITokenUser;
-
-    await this.userService.updateByQuery({ _id }, { refreshToken: null });
-    res.clearCookie(jwtContents.header);
-    res.clearCookie(jwtContents.header_refresh);
-
-    return res.status(201).json({ status: true });
   };
 }
 
