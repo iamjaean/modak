@@ -12,6 +12,10 @@ try {
   fs.mkdirSync("uploads");
 }
 
+interface MulterRequest extends Request {
+  files: any;
+}
+
 export class ReviewController {
   constructor(
     private readonly reviewService: ReviewService,
@@ -45,12 +49,9 @@ export class ReviewController {
     const { id } = req.params;
     const { content, location, rating, photos } = req.body as Omit<IReviewDTO, "author">;
 
-    const review = await this.reviewService.update(id, {
-      content,
-      location,
-      rating,
-      photos,
-    });
+  create = async (req: Request, res: Response) => {
+    const { content, author, locations, shopname } = req.body;
+    const photes = (req as MulterRequest).files;
 
     if (!review) return next({ message: "리뷰가 존재하지 않습니다." });
 
