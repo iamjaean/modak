@@ -43,4 +43,4 @@ export class UserController {
   };
 }
 
-export const userController = new UserController(userService, reviewService);
+export const userController = new UserController(userService);
