@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Request, Response, NextFunction, RequestHandler } from "express";
-import { asyncHandler } from "@utils/asyncHandler";
-import { jwtContents } from "@utils/constants";
+import { Request, Response, RequestHandler } from "express";
+import { jwtContents, url } from "@utils/constants";
 import { AuthService, authService } from "@services/auth.service";
 import { userService, UserService } from "@services/user.service";
 import { ITokenUser } from "~types/User";
@@ -20,7 +18,6 @@ export class AuthController {
   googleOAuthCallback: RequestHandler = async (req, res, next) => {
     const _user = req.user as ITokenUser;
     const [accessToken, refreshToken] = await this.authService.signin(_user);
-    const user = this.userService.getById(_user._id, { refreshToken: 0 });
 
     res.cookie(jwtContents.header, accessToken, {
       maxAge: EXPIRED.access,
@@ -32,13 +29,12 @@ export class AuthController {
       httpOnly: true,
     });
 
-    return res.status(200).json({ status: true, user });
+    res.redirect(url);
   };
 
   kakaoOAuthCallback: RequestHandler = async (req, res) => {
     const _user = req.user as ITokenUser;
     const [accessToken, refreshToken] = await this.authService.signin(_user);
-    const user = this.userService.getById(_user._id, { refreshToken: 0 });
 
     res.cookie(jwtContents.header, accessToken, {
       maxAge: EXPIRED.access,
@@ -49,7 +45,17 @@ export class AuthController {
       httpOnly: true,
     });
 
-    return res.status(200).json({ status: true, user });
+    res.redirect(url);
+  };
+
+  signout = async (req: Request, res: Response) => {
+    const { _id } = req.user as ITokenUser;
+
+    await this.userService.updateByQuery({ _id }, { refreshToken: null });
+    res.clearCookie(jwtContents.header);
+    res.clearCookie(jwtContents.header_refresh);
+
+    res.status(201).json({ status: true });
   };
 }
 
