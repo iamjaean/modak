@@ -1,9 +1,16 @@
 import { RequestHandler } from "express";
+import fs from "fs";
 import { UserService, userService } from "@services/user.service";
 
 import { ITokenUser } from "@src/types/User";
 import { checkValid } from "@src/utils/checkIdValid";
+import resizeImage from "@src/utils/resizeImage";
 
+try {
+  fs.accessSync("uploads");
+} catch (error) {
+  fs.mkdirSync("uploads");
+}
 export class UserController {
   constructor(
     private readonly userService: UserService,
@@ -39,10 +46,16 @@ export class UserController {
     res.status(201).json({ status: true, user });
   };
 
-  test: RequestHandler = async (req, res) => {
-    const modelTest = await this.userService.test();
+  uploadProfileImage: RequestHandler = async (req, res, next) => {
+    const photo = req.file as Express.Multer.File;
 
-    res.send(modelTest);
+    if (!photo) return next({ message: "이미지가 존재하지 않습니다." });
+
+    await resizeImage([photo]);
+
+    const image = photo.filename;
+
+    res.json({ status: true, image });
   };
 }
 
