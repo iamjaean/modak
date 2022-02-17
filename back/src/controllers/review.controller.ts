@@ -7,7 +7,6 @@ import { userService, UserService } from "@services/user.service";
 import { CampsiteService, campsiteService } from "@services/campsite.service";
 import resizeImage from "@utils/resizeImage";
 import { IKeyValueString } from "~types/.";
-import { checkValid } from "@src/utils/checkIdValid";
 
 try {
   fs.accessSync("uploads");
@@ -23,37 +22,36 @@ export class ReviewController {
   ) {}
 
   getMainReviews: RequestHandler = async (req, res) => {
-    const reviews = await this.reviewService.getReviewsByQuery({}, { count: -1, _id: -1 }, 6);
+    const reviews = await this.reviewService.getReviewsByQuery({}, { count: -1, _id: -1 }, 0, 6);
 
     res.json({ status: true, reviews });
   };
 
   getCampReviews: RequestHandler = async (req, res, next) => {
     const { location } = req.params;
-    const { lastId } = req.query;
-
-    if (!checkValid(location) || (lastId && !checkValid(lastId as string)))
-      return next({ message: "유효하지 않은 정보입니다." });
+    const { rating, skip } = req.query;
 
     const query = { location } as IKeyValueString;
-    lastId && (query._id = { $lt: lastId });
+    rating && (query.rating = rating);
 
-    const reviews = await this.reviewService.getReviewsByQuery(query, { count: -1, _id: -1 }, 10);
+    const reviews = await this.reviewService.getReviewsByQuery(
+      query,
+      { count: -1, _id: -1 },
+      Number(skip),
+      10,
+    );
+    console.log(query, reviews);
 
     res.json({ status: true, reviews });
   };
 
   getUserReviews: RequestHandler = async (req, res, next) => {
-    const { lastId } = req.query;
+    const { skip } = req.query;
     const { id } = req.params;
 
-    if (!checkValid(id) || (lastId && !checkValid(lastId as string)))
-      return next({ message: "유효하지 않은 정보입니다." });
-
     const query = { author: id } as IKeyValueString;
-    lastId && (query._id = { $gt: lastId });
 
-    const reviews = await this.reviewService.getReviewsByUserId(query);
+    const reviews = await this.reviewService.getReviewsByUserId(query, Number(skip));
 
     res.json({ status: true, reviews });
   };
@@ -124,6 +122,7 @@ export class ReviewController {
     const review = await this.reviewService.getReviewsByQuery(
       { _id: reviewId, likes: { $in: userId } },
       {},
+      0,
       1,
     );
 
@@ -141,6 +140,7 @@ export class ReviewController {
     const review = await this.reviewService.getReviewsByQuery(
       { _id: reviewId, likes: { $in: userId } },
       {},
+      0,
       1,
     );
 
