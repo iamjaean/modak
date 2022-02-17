@@ -5,6 +5,26 @@ import { PayloadHeaders, RequestHeader } from "@type/apis";
 import { getCamps } from "@reducers/camps/action";
 import { getSigninUser } from "@reducers/user/action";
 
+const CampsiteListPage: NextPage = () => {
+  const { mainCamps } = useAppSelector((state) => state.camps);
+  const [sorted, setSorted] = useState("latest");
+  const onChange = useCallback((e) => {
+    setSorted(e.target.value);
+  }, []);
+
+  return (
+    <>
+      <RowFrame>
+        <FilterFinder sorted={sorted} />
+        <SortButton onChange={onChange} />
+        {mainCamps.map((camp) => (
+          <CampSiteListBox camp={camp} key={camp._id} />
+        ))}
+      </RowFrame>
+    </>
+  );
+};
+
 export { default } from "@pages/Camps";
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {

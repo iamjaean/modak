@@ -12,8 +12,8 @@ const SortButton = ({ onChange }: Props) => {
       <SelectBoxWrapper>
         <DropDownSelect onChange={onChange} defaultValue="최신순">
           <DropDownOption value="_id">최신순</DropDownOption>
-          <DropDownOption value="totalReview">리뷰순</DropDownOption>
-          <DropDownOption value="totalBookmark">북마크순</DropDownOption>
+          <DropDownOption value="totalReview">리뷰 많은 순</DropDownOption>
+          <DropDownOption value="totalBookmark">인기 많은 순</DropDownOption>
         </DropDownSelect>
         <TriangleIcon />
       </SelectBoxWrapper>

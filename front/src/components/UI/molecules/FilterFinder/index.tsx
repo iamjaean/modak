@@ -6,6 +6,7 @@ import useScroll from "@hooks/useScroll";
 import useThrottle from "@hooks/useThrottle";
 import { AppDispatch, useAppSelector } from "@store/configureStore";
 import FilterCategory from "./FilterCategory";
+import { useAppSelector } from "../../../../store/configureStore";
 
 interface QueryProps {
   [key: string]: string[];
