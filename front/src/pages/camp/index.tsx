@@ -5,10 +5,6 @@ import FilterFinder from "@src/components/UI/molecules/FilterFinder";
 import CampSiteListBox from "@src/components/UI/molecules/CampsiteListBox";
 import SortButton from "@src/components/UI/molecules/SortButton";
 import RowFrame from "@src/components/UI/templates/RowFrame";
-import axios, { HeadersDefaults } from "axios";
-import wrapper from "@src/store/configureStore";
-import { getSigninUser } from "@src/reducers/user/action";
-import { getUserReviews } from "@src/reducers/reviews/action";
 
 import axios from "axios";
 import wrapper, { useAppSelector } from "@src/store/configureStore";
