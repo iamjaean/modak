@@ -40,7 +40,6 @@ export class ReviewController {
       Number(skip),
       10,
     );
-    console.log(query, reviews);
 
     res.json({ status: true, reviews });
   };
@@ -96,12 +95,12 @@ export class ReviewController {
     const { id } = req.params;
     const review = await this.reviewService.delete(id);
 
-    await this.userService.updateByQuery({ _id: review?.author }, { $inc: { reviewCount: 1 } });
+    await this.userService.updateByQuery({ _id: review?.author }, { $inc: { reviewCount: -1 } });
     await this.campsiteService.update(review?.location as unknown as string, {
-      $inc: { totalReview: 1 },
+      $inc: { totalReview: -1 },
     });
 
-    res.json({ status: true });
+    res.json({ status: true, id });
   };
 
   uploadImage: RequestHandler = async (req, res, next: NextFunction) => {
