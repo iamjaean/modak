@@ -10,7 +10,8 @@ build-backend:
   stage: build
   script:
     - echo 'backend build'
-    - npm install
+    - cd back
+    - npm i
 
 
 test-backend:
