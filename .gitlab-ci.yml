@@ -18,6 +18,8 @@ test-backend:
   stage: test
   script:
     - echo 'backend test'
+    - cd back
+    - npm run test
 
 deploy-backend:
   stage: deploy
