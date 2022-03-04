@@ -32,7 +32,7 @@ const App = ({ Component, pageProps, mode: modeInCookie }: Props) => {
   return (
     <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
       <Head>
-        <title>chanyeong</title>
+        <title>MODAK</title>
         <meta charSet="UTF-8" />
         <meta
           name="viewport"
