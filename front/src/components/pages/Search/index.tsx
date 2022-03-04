@@ -12,6 +12,7 @@ import RowFrame from "@templates/RowFrame";
 
 import useScroll from "@hooks/useScroll";
 import useThrottle from "@hooks/useThrottle";
+import Head from "next/head";
 
 interface Props {
   query: {
@@ -65,23 +66,29 @@ const Search = ({ query }: Props) => {
   }, []);
 
   return (
-    <RowFrame>
-      <StyledHeader>
-        <div>{values[0]} 검색결과</div>
-        <div>
-          <SortButton onChange={onChange} />
-        </div>
-      </StyledHeader>
-      {mainCamps.map((camp, i) => (
-        <CampSiteListBox camp={camp} key={camp._id + i} />
-      ))}
+    <>
+      <Head>
+        <meta name="description" content={`${query[0]}에 대한 검색결과`} />
+        <meta name="og:description" content={`${query[0]}에 대한 검색결과`} />
+      </Head>
+      <RowFrame>
+        <StyledHeader>
+          <div>{values[0]} 검색결과</div>
+          <div>
+            <SortButton onChange={onChange} />
+          </div>
+        </StyledHeader>
+        {mainCamps.map((camp, i) => (
+          <CampSiteListBox camp={camp} key={camp._id + i} />
+        ))}
 
-      {GCState.loading && (
-        <Loader>
-          <ClipLoader color="#ccc" />
-        </Loader>
-      )}
-    </RowFrame>
+        {GCState.loading && (
+          <Loader>
+            <ClipLoader color="#ccc" />
+          </Loader>
+        )}
+      </RowFrame>
+    </>
   );
 };
 
