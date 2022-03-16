@@ -13,10 +13,14 @@ const Camp: NextPage = () => {
     <>
       <Head>
         <title>{singleCamp?.name} :: MODAK</title>
-        <meta name="description" content={`${singleCamp?.lineIntro}...`} />
+        {singleCamp?.lineIntro && (
+          <meta name="description" content={`${singleCamp?.lineIntro}...`} />
+        )}
         <meta property="og:title" content={`${singleCamp?.name} -MODAK`} />
         <meta property="og:image" content={`${singleCamp?.firstImage || "/tent.jpeg"}`} />
-        <meta property="og:description" content={`${singleCamp?.lineIntro}...`} />
+        {singleCamp?.lineIntro && (
+          <meta property="og:description" content={`${singleCamp?.lineIntro}...`} />
+        )}
       </Head>
       <CampSiteCoverImg />
       <RowFrame>
