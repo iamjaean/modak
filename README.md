@@ -31,16 +31,16 @@
 <img src="https://user-images.githubusercontent.com/72085261/175261221-ae039346-a1bf-465e-9a85-353a8f94ff23.png" width="700" height="auto"/>
 
 ## 와이어프레임
-- [피그마(와이어 프레임)](https://www.figma.com/file/4IuP5rkdTNYy0jsJJ8txH1/Wireframing-in-Figma?node-id=0%3A1)
+- [피그마(와이어 프레임)](https://www.figma.com/file/4IuP5rkdTNYy0jsJJ8txH1/Wireframing-in-Figma?node-id=0%3A1): 메인 & 리스트 페이지 제작
 
 ## 페이지 및 기능 캡처
-- 메인페이지(컴포넌트 제작)<br>
+- **메인페이지(컴포넌트 제작 담당)**<br>
   <img width="700" height="auto" src="https://user-images.githubusercontent.com/72085261/175264236-1a7ebb25-774f-480c-8b60-fc8e134045f3.gif" />
-- 캠핑장 리스트 페이지(컴포넌트 제작 및 기능구현)<br>
+- **캠핑장 리스트 페이지(컴포넌트 제작 및 기능구현 담당)**<br>
   <img width="700" height="auto" src="https://user-images.githubusercontent.com/72085261/175264483-cf1304b3-b7ab-4fd1-ba37-bd981720ab6a.gif" />
-    - 필터링<br>
+    - **필터링**<br>
       <img width="700" height="auto" src="https://user-images.githubusercontent.com/72085261/175264662-3cee9d70-109a-46d1-bd52-89533652bbb7.gif" />
-    - 정렬<br>
+    - **정렬**<br>
       <img width="700" height="auto" src="https://user-images.githubusercontent.com/72085261/175264668-5fff7abd-0107-4642-9e98-25f7e42bc150.gif" />
 - 캠핑장 디테일 페이지<br>
   <img width="700" height="auto" src="https://user-images.githubusercontent.com/72085261/175265301-9987be54-b43e-498d-97d6-213f123298b4.gif" />
